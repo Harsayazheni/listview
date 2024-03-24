@@ -30,12 +30,80 @@ Step 7: Save and run the application.
 ```
 /*
 Program to print the list of item.
-Developed by:
-Registeration Number :
+Developed by: Harsayazheni P Y
+Registeration Number : 212222040052
 */
+```
+### In activitymain.xml
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/simpleListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#d9d9d9"
+        android:dividerHeight="5dp"
+        android:listSelector="#000000" />
+</LinearLayout>
+```
+
+### In MainActivity.java
+```
+package com.example.listview;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+public class MainActivity extends AppCompatActivity {
+    // Array of strings...
+    ListView simpleList;
+    String countryList[] = {"India", "China", "Australia", "Portugle", "America", "NewZealand","Zambodia","Peru","California","United States","Korea","Spain","Africa"};
+
+    @Override   protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);      setContentView(R.layout.activity_main);
+        simpleList = (ListView)findViewById(R.id.simpleListView);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_listview, R.id.textView, countryList);
+        simpleList.setAdapter(arrayAdapter);
+    }
+}
+```
+
+### In activity_listview.xml
+```
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="48sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
 ## OUTPUT
+![WhatsApp Image 2024-03-24 at 19 57 43_3af56667](https://github.com/Harsayazheni/listview/assets/118708467/6dab625b-2c03-41ea-8b3e-5a45eb9cfa0e)
+![WhatsApp Image 2024-03-24 at 19 57 43_c57ea73e](https://github.com/Harsayazheni/listview/assets/118708467/7a7c5969-97b9-4f81-83d5-9d0abf301bed)
 
 
 
