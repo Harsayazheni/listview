@@ -44,34 +44,35 @@ Registeration Number : 212222040052
 
     <ListView
         android:id="@+id/simpleListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#d9d9d9"
-        android:dividerHeight="5dp"
-        android:listSelector="#000000" />
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/material_blue_grey_800"
+        android:dividerHeight="1dp"
+        android:listSelector="#ffafcc"
+        android:footerDividersEnabled="false" />
 </LinearLayout>
 ```
 
 ### In MainActivity.java
 ```
-package com.example.listview;
+package com.example.listviewimage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
-    // Array of strings...
     ListView simpleList;
-    String countryList[] = {"India", "China", "Australia", "Portugle", "America", "NewZealand","Zambodia","Peru","California","United States","Korea","Spain","Africa"};
-
-    @Override   protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);      setContentView(R.layout.activity_main);
-        simpleList = (ListView)findViewById(R.id.simpleListView);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_listview, R.id.textView, countryList);
-        simpleList.setAdapter(arrayAdapter);
+    String countryList[] = {"India", "China", "Australia", "Portugle", "America", "NewZealand","Africa","Belgium","Greece","Germany","France","Brazil","Peru","Vatican City","Spain","Switzerland"};
+    int flags[] = {R.drawable.india, R.drawable.china, R.drawable.australia, R.drawable.portugle, R.drawable.america, R.drawable.new_zealand,R.drawable.africa,R.drawable.belgium,R.drawable.greece,R.drawable.germany,R.drawable.france,R.drawable.brazil,R.drawable.peru,R.drawable.vaticancity,R.drawable.spain,R.drawable.switzerland};
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        simpleList = (ListView) findViewById(R.id.simpleListView);
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countryList, flags);
+        simpleList.setAdapter(customAdapter);
     }
 }
 ```
@@ -79,31 +80,85 @@ public class MainActivity extends AppCompatActivity {
 ### In activity_listview.xml
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="48sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center"
+        android:textColor="@color/black" />
+</LinearLayout>
+```
+
+## In CustomAdapter.java
+```
+package com.example.listviewimage;
+
+import android.content.Context;
+import android.media.Image;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.zip.Inflater;
+public class CustomAdapter extends BaseAdapter {
+    Context context;
+    String countryList[];
+    int flags[];
+    LayoutInflater inflter;
+
+    public CustomAdapter(Context applicationContext, String[] countryList, int[] flags) {
+        this.context = context;
+        this.countryList = countryList;
+        this.flags = flags;
+        inflter = (LayoutInflater.from(applicationContext));
+    }
+
+    @Override
+    public int getCount() {
+        return countryList.length;
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        view = inflter.inflate(R.layout.activity_listview, null);
+        TextView country = (TextView)           view.findViewById(R.id.textView);
+        ImageView icon = (ImageView) view.findViewById(R.id.icon);
+        country.setText(countryList[i]);
+        icon.setImageResource(flags[i]);
+        return view;
+    }
+}
+
 ```
 
 ## OUTPUT
-![WhatsApp Image 2024-03-24 at 19 57 43_3af56667](https://github.com/Harsayazheni/listview/assets/118708467/6dab625b-2c03-41ea-8b3e-5a45eb9cfa0e)
-![WhatsApp Image 2024-03-24 at 19 57 43_c57ea73e](https://github.com/Harsayazheni/listview/assets/118708467/7a7c5969-97b9-4f81-83d5-9d0abf301bed)
+![WhatsApp Image 2024-03-25 at 09 07 40_2e01aac8](https://github.com/Harsayazheni/listview/assets/118708467/16c9950a-8e9d-44aa-b4d4-8948fc531df6)
+![WhatsApp Image 2024-03-25 at 09 07 40_9d0f8218](https://github.com/Harsayazheni/listview/assets/118708467/266249be-5cfb-4f65-9b54-606b78b713f2)
+
 
 
 
